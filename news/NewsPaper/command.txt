@@ -1,0 +1,49 @@
+Команды для работы с базой данных:
+1) Создать двух пользователей:
+    u1 = User.objects.create_user(username = 'Aleksander')
+    u2 = User.objects.create_user(username = 'Polina')
+
+2) Создать два объекта модели Author, связанные с пользователем:
+    a1 = Author.objects.create(user = u1)
+    a2 = Author.objects.create(user = u2)
+
+3) Добавить 4 категории в модель Category:
+    c1 = Category.objects.create(name = 'Все о спорте')
+    c2 = Category.objects.create(name = 'Все о политике')
+    c3 = Category.objects.create(name = 'Образование наше все')
+    c4 = Category.objects.create(name = 'Новости зарубежья')
+
+4) Добавить 2 статья и одну новость:
+    ar1 = Post.objects.create(author = a1, field = 'ar', title = 'Заголовок', text = 'Текст')
+    ar2 = Post.objects.create(author = a1, field = 'ar', title = 'Заголовок', text = 'Текст')
+    ne1 = Post.objects.create(author = a2, field = 'ne', title = 'Заголовок', text = 'Текст')
+
+5) Присвоить им категории:
+    PostCategory.objects.create(post = ne1, category = c2)
+    PostCategory.objects.create(post = ne1, category = c4)
+    PostCategory.objects.create(post = ar1, category = c1)
+
+6) Создать как минимум 4 комментария к разным объектам модели Post:
+    Comment.objects.create(user = u1, comment = ar1, text = 'Любой комментарий')
+    Comment.objects.create(user = u1, comment = ar2, text = 'Любой комментарий')
+    Comment.objects.create(user = u1, comment = ne1, text = 'Любой комментарий')
+
+7) Применяя функции like(), dislike() к статьям/новостям и комментариям:
+    ar1.like()/ar1.dislike()
+    ar2.like()/ar2.dislike()
+    ne1.like()/ne1.dislike()
+
+8) Обновить рейтинги пользователей:
+    a1.update_rating()
+    a2.update_rating()
+
+9) Вывести username и рейтинг лучшего пользователя (применяя сортировку и возвращая поля первого объекта)
+    Author.objects.order_by('-rating').values('user__username', 'rating').first()
+
+10) Вывести дату добавления, username автора, рейтинг, заголовок и превью лучшей статьи:
+    Post.objects.order_by('-rating')[:1].values('author__user__username', 'rating', 'title', 'time_in')
+    Post.objects.order_by('-rating')[0].preview()
+
+11) Вывести все комментарии (дата, пользователь, рейтинг, текст) к этой статье:
+    Post.objects.order_by('-rating')[0].comment_set.all().values('user__username', 'rating', 'text', 'time_in')
+
