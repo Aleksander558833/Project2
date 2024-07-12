@@ -1,0 +1,34 @@
+{% extends 'flatpages/default.html' %}
+
+
+{% block title %}
+Post
+{% endblock title %}
+
+
+{% block content %}
+    <h1>Все новости</h1>
+
+    <hr>
+    {% if news %}
+        <table>
+            <tr>
+                <td>Дата публикации</td>
+                <td>Автор</td>
+                <td>Заголовок</td>
+                <td>Описание</td>
+            </tr>
+
+            {% for post in news %}
+            <tr>
+                <td>{{ post.time_in|date:'M d Y' }}</td>
+                <td>{{ post.author }}</td>
+                <td>{{ post.title }}</td>
+                <td>{{ post.text|truncatewords:20 }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <h2>Новостей нет!</h2>
+    {% endif %}
+{% endblock content %}
