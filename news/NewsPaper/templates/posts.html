@@ -21,7 +21,7 @@ Post
             <tr>
                 <td>{{ Post.time_in|date:'d m y' }}</td>
                 <td>{{ Post.author.user }}</td>
-                <td>{{ Post.title }}</td>
+                <td>{{ Post.title|censor }}</td>
                 <td>{{ Post.text|censor }}</td>
             </tr>
         </table>
