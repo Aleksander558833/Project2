@@ -1,5 +1,7 @@
-<!--  наследуемся от шаблона default.html, который мы создавали для flatpages -->
 {% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+
 
 {% block title %}
 Post
@@ -7,5 +9,21 @@ Post
 
 
 {% block content %}
-<h1>{{ Post }}</h1>
+{% if Post %}
+        <table width="100%" style="margin-top: 35px">
+            <tr>
+                <td>Дата публикации</td>
+                <td>Автор</td>
+                <td>Заголовок</td>
+                <td>Описание</td>
+            </tr>
+
+            <tr>
+                <td>{{ Post.time_in|date:'d m y' }}</td>
+                <td>{{ Post.author.user }}</td>
+                <td>{{ Post.title }}</td>
+                <td>{{ Post.text|censor }}</td>
+            </tr>
+        </table>
+{% endif %}
 {% endblock content %}

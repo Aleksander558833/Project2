@@ -8,10 +8,10 @@ Post
 
 {% block content %}
     <h1>Все новости</h1>
-
+    <h2>Количество новостей {{ news|length }}</h2>
     <hr>
     {% if news %}
-        <table>
+        <table width="100%" style="margin-top: 35px">
             <tr>
                 <td>Дата публикации</td>
                 <td>Автор</td>
@@ -21,8 +21,8 @@ Post
 
             {% for post in news %}
             <tr>
-                <td>{{ post.time_in|date:'M d Y' }}</td>
-                <td>{{ post.author }}</td>
+                <td>{{ post.time_in|date:'d m y' }}</td>
+                <td>{{ post.author.user }}</td>
                 <td>{{ post.title }}</td>
                 <td>{{ post.text|truncatewords:20 }}</td>
             </tr>
