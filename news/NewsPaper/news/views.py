@@ -7,6 +7,8 @@ class PostList(ListView):
     ordering = 'category'
     template_name = 'News.html'
     context_object_name = 'news'
+    ordering = '-time_in'
+    paginate_by = 2
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
