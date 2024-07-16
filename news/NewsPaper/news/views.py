@@ -40,8 +40,6 @@ class NewsCreate(CreateView):
             post.field = 'NE'
         else:
             post.field = 'AR'
-        post.save()
-        form.save_m2m()
         return super().form_valid(form)
 
 class NewsUpdate(UpdateView):
@@ -52,7 +50,7 @@ class NewsUpdate(UpdateView):
 class NewsDelete(DeleteView):
     model = Post
     template_name = 'news_delete.html'
-    success_url = reverse_lazy('news')
+    success_url = reverse_lazy('post_list')
 
 class ArticleCreate(CreateView):
     form_class = PostForm
@@ -67,7 +65,7 @@ class ArticleUpdate(UpdateView):
 class ArticleDelete(DeleteView):
     model = Post
     template_name = 'article_delete.html'
-    success_url = reverse_lazy('news')
+    success_url = reverse_lazy('post_list')
 
 
 

@@ -16,6 +16,9 @@ class Author(models.Model):
         self.rating = posts_rating * 3 + comments_rating + posts_comments_rating
         self.save()
 
+    def __str__(self):
+        return self.user.username
+
 class Category(models.Model):
     name = models.CharField(max_length=250, unique=True)
 
@@ -51,7 +54,8 @@ class Post(models.Model):
         return f'{self.text[:124]}...'
 
     def get_absolute_url(self):
-        return reverse('news_create', args=[str(self.id)])
+        return reverse('post_detail', args=[str(self.id)])
+
 
 
 
