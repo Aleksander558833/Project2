@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Sum
 from django.db.models.functions import Coalesce
+from django.urls import reverse
 
 class Author(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -48,6 +49,9 @@ class Post(models.Model):
 
     def preview(self):
         return f'{self.text[:124]}...'
+
+    def get_absolute_url(self):
+        return reverse('news_create', args=[str(self.id)])
 
 
 
