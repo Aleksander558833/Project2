@@ -4,7 +4,7 @@ from .models import Product
 from .filters import ProductFilter
 from .forms import ProductForm
 from django.urls import reverse_lazy
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 class ProductsList(ListView):
     model = Product
@@ -30,18 +30,20 @@ class ProductDetail(DetailView):
     template_name = 'product.html'
     context_object_name = 'product'
 
-class ProductCreate(LoginRequiredMixin, CreateView):
-    raise_exception = True
+class ProductCreate(PermissionRequiredMixin, CreateView):
+    permission_required = ('simpleapp.add_product')
     form_class = ProductForm
     model = Product
     template_name = 'product_edit.html'
 
-class ProductUpdate(UpdateView):
+class ProductUpdate(PermissionRequiredMixin, UpdateView):
+    permission_required = ('simpleapp.change_product')
     form_class = ProductForm
     model = Product
     template_name = 'product_edit.html'
 
-class ProductDelete(DeleteView):
+class ProductDelete(PermissionRequiredMixin, DeleteView):
+    permission_required = ('simpleapp.delete_product')
     model = Product
     template_name = 'products_delete.html'
     success_url = reverse_lazy('product_list')
