@@ -151,5 +151,23 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_FORMS = {'signup': 'accounts.forms.CustomSignupForm'}
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = "sanya.ept.kolchin@yandex.ru"
+EMAIL_HOST_PASSWORD = "mcwcqzdrxpotnvfl"
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+DEFAULT_FROM_EMAIL = "sanya.ept.kolchin@yandex.ru"
+
+SERVER_EMAIL = 'sanya.ept.kolchin@yandex.ru'
+MANAGERS = (
+    ('alexander_2424', 'alexander_2424@mail.ru'),
+)
+
+ADMINS = (
+    ('aleksandrkolchin', 'aleksandrkolchin9962@gmail.com'),
+)
