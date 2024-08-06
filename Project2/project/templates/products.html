@@ -17,6 +17,11 @@ Products
     </form>
 
     <hr>
+
+    {% if perms.product.add_product %}
+    <a href="{% url 'product_create' %}">Добавить товар</a>
+    {% endif %}
+
     {% if products %}
         <table width="100%" style="margin-top: 35px">
             <tr>
@@ -25,6 +30,10 @@ Products
                 <td>Категория</td>
                 <td>Цена</td>
                 <td>Количество</td>
+
+                {% if perms.news.change_product or perms.news.delete_product %}
+                <td>Действия</td>
+                {% endif %}
             </tr>
 
             {% for product in products %}
@@ -34,6 +43,16 @@ Products
                 <td>{{ product.category.name }}</td>
                 <td>{{ product.price|currency:'usd' }}</td>
                 <td>{{ product.quantity }}</td>
+
+                <td>
+                    {% if perms.news.change_product %}
+                    <a href="{% url 'product_update' product.id %}">Изменить |</a>
+                    {% endif %}
+
+                    {% if perms.delete_product %}
+                    <a href="{% url 'product_delete' product.id %}">Удалить</a>
+                    {% endif %}
+                </td>
             </tr>
             {% endfor %}
         </table>

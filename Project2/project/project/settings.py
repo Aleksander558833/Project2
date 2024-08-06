@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.yandex',
+    'django_apscheduler',
 ]
 
 SITE_ID = 1
@@ -154,7 +155,10 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_FORMS = {'signup': 'accounts.forms.CustomSignupForm'}
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
+APSCHEDULER_RUN_NOW_TIMEOUT = 25
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
 EMAIL_HOST_USER = "sanya.ept.kolchin@yandex.ru"
@@ -171,3 +175,9 @@ MANAGERS = (
 ADMINS = (
     ('aleksandrkolchin', 'aleksandrkolchin9962@gmail.com'),
 )
+
+CELERY_BROKER_URL = 'redis-16054.c244.us-east-1-2.ec2.redns.redis-cloud.com:16054'
+CELERY_RESULT_BACKEND = 'redis-16054.c244.us-east-1-2.ec2.redns.redis-cloud.com:16054'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
